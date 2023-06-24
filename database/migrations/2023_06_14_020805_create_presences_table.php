@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('schedule_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

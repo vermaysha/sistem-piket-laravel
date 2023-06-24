@@ -59,9 +59,8 @@ class Presence extends Page
                 ->action(function (array $data): void {
                     $today = Carbon::today();
                     $data['user_id'] = Auth::id();
-                    $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth)
+                    $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth - 1)
                     ->where('day', $today->dayOfWeekIso)
-                    ->where('is_accepted', true)
                     ->whereHas('squad', function ($q) {
                         $q->where('id', Auth::user()->squad_id);
                     })->first()->id;
@@ -72,7 +71,6 @@ class Presence extends Page
                 })->form([
                     Forms\Components\Textarea::make('keterangan')
                     ->label('Keterangan')
-                    ->required(),
                 ]),
         ];
     }
