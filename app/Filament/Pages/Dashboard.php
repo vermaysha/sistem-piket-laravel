@@ -12,7 +12,7 @@ class Dashboard extends BasePage
     {
         return [
             AccountWidget::class,
-            FilamentInfoWidget::class
+            // FilamentInfoWidget::class
         ];
     }
 }
