@@ -44,17 +44,34 @@ class CalendarWidget extends FullCalendarWidget
                 for ($j=1; $j <= $total; $j++) {
                     foreach ($squad->schedules as $schedule) {
                         if ($schedule->day === $j && $schedule->week == $i && $schedule->is_accepted === true) {
-                            $results[] = [
-                                'id' => uniqid('fl'),
-                                'title' => (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan' ? $squad->name . ': ' : '') . $schedule->period->name,
-                                'start' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
-                                'end' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->end->format('H')),
-                                'display' => 'block',
-                                'editable' => false,
-                                'resourceEditable' => false,
-                                'backgroundColor' => '#19647E',
-                                'borderColor' => '#19647E'
-                            ];
+                            if (Auth::user()->role === 'anggota') {
+                                $results[] = [
+                                    'id' => uniqid('fl'),
+                                    'title' => (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan' ? $squad->name . ' : ' : '') . $schedule->period->name,
+                                    'start' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
+                                    'end' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->end->format('H')),
+                                    'display' => 'block',
+                                    'editable' => false,
+                                    'resourceEditable' => false,
+                                    'backgroundColor' => '#19647E',
+                                    'borderColor' => '#19647E'
+                                ];
+                            } else {
+                                foreach ($squad->members as $member) {
+                                    $name = ucfirst(mb_strtolower(explode(' ', $member->fullname)[0]));
+                                    $results[] = [
+                                        'id' => uniqid('fl'),
+                                        'title' => (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan' ? $name . ' : ' : '') . $schedule->period->name,
+                                        'start' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
+                                        'end' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->end->format('H')),
+                                        'display' => 'block',
+                                        'editable' => false,
+                                        'resourceEditable' => false,
+                                        'backgroundColor' => '#19647E',
+                                        'borderColor' => '#19647E'
+                                    ];
+                                }
+                            }
                         } else {
                             if (Auth::user()->role === 'anggota') {
                                 $results[] = [
