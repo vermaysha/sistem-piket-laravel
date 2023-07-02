@@ -19,7 +19,7 @@
             <tr class="text-center">
                 <th scope="col" class="border border-slate-300 px-2 py-2 text-center" style="width: 40px;">No</th>
                 <th scope="col" class="border border-slate-300 px-2 py-2">Nama</th>
-                <th scope="col" class="border border-slate-300 px-2 py-2">Keterangan</th>
+                {{-- <th scope="col" class="border border-slate-300 px-2 py-2">Keterangan</th> --}}
                 <th scope="col" class="border border-slate-300 px-2 py-2">Tanggal Presensi</th>
                 <th scope="col" class="border border-slate-300 px-2 py-2">Jadwal Minggu</th>
                 <th scope="col" class="border border-slate-300 px-2 py-2">Jadwal Hari</th>
@@ -31,7 +31,7 @@
             <tr>
                 <td class="border border-slate-300 px-2 py-2 text-center">{{ $i + 1 }}</td>
                 <td class="border border-slate-300 px-2 py-2">{{ $item->user->fullname }}</td>
-                <td class="border border-slate-300 px-2 py-2">{{ $item->keterangan }}</td>
+                {{-- <td class="border border-slate-300 px-2 py-2">{{ $item->keterangan }}</td> --}}
                 <td class="border border-slate-300 px-2 py-2">{{ $item->created_at->isoFormat('dddd, DD MMMM Y \P\u\k\u\l HH:mm') }}</td>
                 <td class="border border-slate-300 px-2 py-2">
                     {{ strtr($item->schedule->week, $week) }}

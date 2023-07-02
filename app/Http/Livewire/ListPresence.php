@@ -49,7 +49,7 @@ class ListPresence extends Component implements Tables\Contracts\HasTable
             TextColumn::make('user.fullname')->label('Nama')->visible(function () {
                 return Auth::user()->role === 'pimpinan';
             }),
-            Tables\Columns\TextColumn::make('keterangan')->label('Keterangan'),
+            // Tables\Columns\TextColumn::make('keterangan')->label('Keterangan'),
             Tables\Columns\BadgeColumn::make('created_at')->dateTime('l, d F Y \P\u\k\u\l H:i')->label('Tanggal Presensi')->color('success')->alignCenter(),
             BadgeColumn::make('schedule.week')->label('Jadwal Minggu')->color('primary')->enum([
                 1 => 'Pertama',
