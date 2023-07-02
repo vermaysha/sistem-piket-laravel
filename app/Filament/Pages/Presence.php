@@ -36,9 +36,9 @@ class Presence extends Page
                         ->whereHas('squad', function ($q) {
                             $q->where('id', Auth::user()->squad_id);
                         })->whereHas('period', function ($q) {
-                            // $now = Carbon::now();
-                            // $q->whereTime('start', '<=', $now);
-                            // $q->whereTime('end', '>', $now);
+                            $now = Carbon::now();
+                            $q->whereTime('start', '<=', $now);
+                            $q->whereTime('end', '>', $now);
                         })->first();
 
                     $isExpired = false;
@@ -50,16 +50,19 @@ class Presence extends Page
                         $start = $period->start->hour;
                         $end = $period->end->hour;
 
-                        $isExpired = !($hour >= $start && $end < $hour);
+                        if ($hour >= $start && $hour > $end) {
+                            $isExpired = true;
+                        }
                     }
 
-                    return $alreadyPresence || $hasSchedule || $isExpired;
+                    return $alreadyPresence || $isExpired;
                 })
                 ->label('Presensi')
                 ->action(function (array $data): void {
                     $today = Carbon::today();
                     $data['user_id'] = Auth::id();
-                    $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth - 1)
+                    $data['keterangan'] = null;
+                    $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth)
                     ->where('day', $today->dayOfWeekIso)
                     ->whereHas('squad', function ($q) {
                         $q->where('id', Auth::user()->squad_id);
@@ -68,10 +71,11 @@ class Presence extends Page
                     ModelsPresence::create($data);
 
                     redirect('/presence');
-                })->form([
-                    Forms\Components\Textarea::make('keterangan')
-                    ->label('Keterangan')
-                ]),
+                })
+                // ->form([
+                //     Forms\Components\Textarea::make('keterangan')
+                //     ->label('Keterangan')
+                // ]),
         ];
     }
 
