@@ -36,9 +36,9 @@ class Presence extends Page
                         ->whereHas('squad', function ($q) {
                             $q->where('id', Auth::user()->squad_id);
                         })->whereHas('period', function ($q) {
-                            $now = Carbon::now();
-                            $q->whereTime('start', '<=', $now);
-                            $q->whereTime('end', '>', $now);
+                            // $now = Carbon::now();
+                            // $q->whereTime('start', '<=', $now);
+                            // $q->whereTime('end', '>', $now);
                         })->first();
 
                     $isExpired = false;
@@ -50,7 +50,10 @@ class Presence extends Page
                         $start = $period->start->hour;
                         $end = $period->end->hour;
 
-                        if ($hour >= $start && $hour > $end) {
+                        if ($hour >= $start && $hour <= $end) {
+                            $isExpired = false;
+                        }
+                        else if ($hour >= $start && $hour > $end) {
                             $isExpired = true;
                         }
                     }
