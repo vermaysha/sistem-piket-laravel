@@ -20,7 +20,7 @@ class CreateMember extends CreateRecord
 
     protected function getCreatedNotificationTitle(): ?string
     {
-        return 'Anggota telah ditambahkan, menunggu konfirmasi pimpinan ...';
+        return 'Anggota telah ditambahkan';
     }
 
     protected function getRedirectUrl(): string
