@@ -24,7 +24,7 @@ class CalendarWidget extends FullCalendarWidget
             'schedules',
             'schedules.period'
             ])->whereHas('schedules', function ($q) {
-                $q->where('is_accepted', true);
+                $q->where('diterima', true);
             });
 
         if (Auth::user()->role === 'anggota') {
@@ -43,13 +43,13 @@ class CalendarWidget extends FullCalendarWidget
                 }
                 for ($j=1; $j <= $total; $j++) {
                     foreach ($squad->schedules as $schedule) {
-                        if ($schedule->day === $j && $schedule->week == $i && $schedule->is_accepted === true) {
+                        if ($schedule->hari === $j && $schedule->minggu == $i && $schedule->diterima === true) {
                             if (Auth::user()->role === 'anggota') {
                                 $results[] = [
                                     'id' => uniqid('fl'),
-                                    'title' => (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan' ? $squad->name . ' : ' : '') . $schedule->period->name,
-                                    'start' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
-                                    'end' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->end->format('H')),
+                                    'title' => $schedule->period->nama,
+                                    'start' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
+                                    'end' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->selesai->format('H')),
                                     'display' => 'block',
                                     'editable' => false,
                                     'resourceEditable' => false,
@@ -61,9 +61,9 @@ class CalendarWidget extends FullCalendarWidget
                                     $name = ucfirst(mb_strtolower(explode(' ', $member->fullname)[0]));
                                     $results[] = [
                                         'id' => uniqid('fl'),
-                                        'title' => (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan' ? $name . ' : ' : '') . $schedule->period->name,
-                                        'start' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
-                                        'end' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->end->format('H')),
+                                        'title' =>  $name . ' : ' . $schedule->period->nama,
+                                        'start' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
+                                        'end' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->selesai->format('H')),
                                         'display' => 'block',
                                         'editable' => false,
                                         'resourceEditable' => false,
@@ -77,8 +77,8 @@ class CalendarWidget extends FullCalendarWidget
                                 $results[] = [
                                     'id' => uniqid('fl'),
                                     'title' => 'Lepas Dinas',
-                                    'start' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->start->format('H')),
-                                    'end' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->end->format('H')),
+                                    'start' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->mulai->format('H')),
+                                    'end' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->selesai->format('H')),
                                     'display' => 'block',
                                     'editable' => false,
                                     'resourceEditable' => false,
