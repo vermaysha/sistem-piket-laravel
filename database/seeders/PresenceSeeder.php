@@ -28,14 +28,14 @@ class PresenceSeeder extends Seeder
                     $total = $today->copy()->endOfMonth()->diffInDays($lastWeekStart) + 1;
                 }
                 for ($j=1; $j <= $total; $j++) {
-                    if ($schedule->day === $j && $schedule->week == $i) {
+                    if ($schedule->hari === $j && $schedule->minggu == $i) {
                         foreach ($squad->members as $member) {
                             $data[] = [
-                                'user_id' => $member->id,
-                                'schedule_id' => $schedule->id,
+                                'anggota_id' => $member->id,
+                                'jadwal_id' => $schedule->id,
                                 'keterangan' => 'Hadir',
-                                'created_at' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
-                                'updated_at' => $today->addWeeks($i - 1)->addDays($schedule->day - 1)->setHour($schedule->period->start->format('H')),
+                                'created_at' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
+                                'updated_at' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
                             ];
                         }
                     }

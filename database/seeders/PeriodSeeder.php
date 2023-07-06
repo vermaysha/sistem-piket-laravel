@@ -15,16 +15,16 @@ class PeriodSeeder extends Seeder
     {
         Period::insert([
             [
-                'name' => 'Malam',
-                'start' => '18:00',
-                'end' => '23:00',
+                'nama' => 'Malam',
+                'mulai' => '18:00',
+                'selesai' => '23:00',
                 'updated_at' => now(),
                 'created_at' => now(),
             ],
             [
-                'name' => 'Pagi',
-                'start' => '06:00',
-                'end' => '10:00',
+                'nama' => 'Pagi',
+                'mulai' => '06:00',
+                'selesai' => '10:00',
                 'updated_at' => now(),
                 'created_at' => now(),
             ],
