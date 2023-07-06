@@ -17,7 +17,7 @@ class SquadSeeder extends Seeder
         ];
         for ($i=1; $i <= 9; $i++) {
             $data[] = [
-                'name' => 'Regu ' . $i,
+                'nama' => 'Regu ' . $i,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
