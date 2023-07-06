@@ -64,10 +64,10 @@ class Presence extends Page
                     }
 
                     if ($schedule) {
-                        return false;
+                        return true;
                     }
 
-                    return true;
+                    return false;
                 })
                 ->label($alreadyPresence ? 'Sudah Presensi: ' . $alreadyPresence->schedule->period->name : 'Presensi: ' . $schedule->period->name)
                 ->action(function (array $data) use ($today, $hour): void {
