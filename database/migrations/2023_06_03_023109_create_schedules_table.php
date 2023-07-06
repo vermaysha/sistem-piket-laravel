@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('squad_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('period_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->tinyInteger('week');
-            $table->tinyInteger('day');
-            $table->boolean('is_accepted')->default(false);
+            $table->foreignId('regu_id')->constrained('regu')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('periode_id')->constrained('periode')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->tinyInteger('minggu');
+            $table->tinyInteger('hari');
+            $table->boolean('diterima')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('jadwal');
     }
 };
