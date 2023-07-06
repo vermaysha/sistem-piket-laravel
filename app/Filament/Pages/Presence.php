@@ -56,6 +56,13 @@ class Presence extends Page
             })
             ->first();
 
+        $title = 'Tidak ada presensi';
+        if ($alreadyPresence) {
+            $title = 'Sudah Presensi: ' . $alreadyPresence->schedule->period->name;
+        } elseif ($schedule) {
+            $title = 'Presensi: ' . $schedule->period->name;
+        }
+
         return [
             Action::make('presensi')
                 ->disabled(function () use ($alreadyPresence, $schedule): bool {
@@ -64,12 +71,12 @@ class Presence extends Page
                     }
 
                     if ($schedule) {
-                        return true;
+                        return false;
                     }
 
-                    return false;
+                    return true;
                 })
-                ->label($alreadyPresence ? 'Sudah Presensi: ' . $alreadyPresence->schedule->period->name : 'Presensi: ' . $schedule->period->name)
+                ->label($title)
                 ->action(function (array $data) use ($today, $hour): void {
                     $data['user_id'] = Auth::id();
                     $data['keterangan'] = null;
