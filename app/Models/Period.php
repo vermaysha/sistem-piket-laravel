@@ -10,15 +10,17 @@ class Period extends Model
 {
     use HasFactory;
 
+    protected $table = 'periode';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'start',
-        'end',
+        'nama',
+        'mulai',
+        'selesai',
     ];
 
     /**
@@ -27,8 +29,8 @@ class Period extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'start' => 'datetime:H:i:s',
-        'end'   => 'datetime:H:i:s'
+        'mulai' => 'datetime:H:i:s',
+        'selesai'   => 'datetime:H:i:s'
     ];
 
     /**
@@ -37,7 +39,7 @@ class Period extends Model
     protected function date(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['start'] . ' - ' . $attributes['end']
+            get: fn (mixed $value, array $attributes) => $attributes['mulai'] . ' - ' . $attributes['selesai']
         );
     }
 }

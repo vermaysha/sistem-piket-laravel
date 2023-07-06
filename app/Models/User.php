@@ -15,18 +15,20 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'anggota';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'fullname',
         'email',
         'password',
-        'rank',
-        'position'
+        'jabatan',
+        'pangkat'
     ];
 
     /**
@@ -60,6 +62,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function squad()
     {
-        return $this->belongsTo(Squad::class);
+        return $this->belongsTo(Squad::class, 'regu_id');
     }
 }

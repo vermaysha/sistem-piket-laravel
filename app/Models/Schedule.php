@@ -9,17 +9,20 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    // Custom table name
+    protected $table = 'jadwal';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'squad_id',
-        'period_id',
-        'is_accepted',
-        'week',
-        'day',
+        'regu_id',
+        'periode_id',
+        'diterima',
+        'minggu',
+        'hari',
     ];
 
     /**
@@ -28,14 +31,14 @@ class Schedule extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_accepted' => 'boolean',
+        'diterima' => 'boolean',
     ];
 
     function period() {
-        return $this->belongsTo(Period::class);
+        return $this->belongsTo(Period::class, 'periode_id');
     }
 
     function squad() {
-        return $this->belongsTo(Squad::class);
+        return $this->belongsTo(Squad::class,  'regu_id');
     }
 }

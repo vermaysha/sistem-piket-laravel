@@ -9,6 +9,9 @@ class Presence extends Model
 {
     use HasFactory;
 
+    // Custom Table name
+    protected $table = 'presensi';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -16,15 +19,15 @@ class Presence extends Model
      */
     protected $fillable = [
         'keterangan',
-        'user_id',
-        'schedule_id',
+        'anggota_id',
+        'jadwal_id',
     ];
 
     function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'anggota_id');
     }
 
     function schedule() {
-        return $this->belongsTo(Schedule::class);
+        return $this->belongsTo(Schedule::class, 'jadwal_id');
     }
 }

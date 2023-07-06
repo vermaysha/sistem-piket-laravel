@@ -9,11 +9,13 @@ class Squad extends Model
 {
     use HasFactory;
 
+    protected $table = 'regu';
+
     function schedules() {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(Schedule::class, 'regu_id');
     }
 
     function members() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'regu_id');
     }
 }
