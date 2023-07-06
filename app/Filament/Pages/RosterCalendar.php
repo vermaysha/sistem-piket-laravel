@@ -34,7 +34,7 @@ class RosterCalendar extends Page
             'schedules',
             'schedules.period'
             ])->whereHas('schedules', function ($q) use ($today) {
-                $q->where('week', $today->weekOfMonth);
+                $q->where('minggu', $today->weekOfMonth);
             })->get();
 
         $result = [];
@@ -46,7 +46,7 @@ class RosterCalendar extends Page
             for ($j = 1; $j <= 7; $j++) {
                 $add = true;
                 foreach ($result[$i]['schedules'] as $schedule) {
-                    if ($schedule['day'] === $j) {
+                    if ($schedule['hari'] === $j) {
                         $newSchedules[] = $schedule;
                         $add = false;
                     }
@@ -62,7 +62,7 @@ class RosterCalendar extends Page
         return [
             'squads' => $result,
             'schedules' => $result,
-            'today' => $today,
+            'tohari' => $today,
             'days' => [
                 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'
             ]
