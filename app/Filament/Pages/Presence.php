@@ -30,37 +30,37 @@ class Presence extends Page
         $alreadyPresence =  ModelsPresence::with([
             'schedule',
             'schedule.period'
-        ])->where('user_id', Auth::id())
+        ])->where('anggota_id', Auth::id())
             ->whereDate('created_at', Carbon::today())
             ->whereHas('schedule', function ($q) use ($today) {
-                $q->where('week', $today->weekOfMonth)
-                    ->where('day', $today->dayOfWeekIso)
+                $q->where('minggu', $today->weekOfMonth)
+                    ->where('hari', $today->dayOfWeekIso)
                     ->whereHas('squad', function ($q) {
-                        $q->where('id', Auth::user()->squad_id);
+                        $q->where('id', Auth::user()->regu_id);
                     });
             })
             ->whereHas('schedule.period', function ($q) use ($hour) {
-                $q->whereTime('start', '<=', $hour);
-                $q->whereTime('end', '>', $hour);
+                $q->whereTime('mulai', '<=', $hour);
+                $q->whereTime('selesai', '>', $hour);
             })
             ->first();
-        $schedule = Schedule::with('period')->where('week', $today->weekOfMonth)
-            ->where('day', $today->dayOfWeekIso)
-            ->where('is_accepted', true)
+        $schedule = Schedule::with('period')->where('minggu', $today->weekOfMonth)
+            ->where('hari', $today->dayOfWeekIso)
+            ->where('diterima', true)
             ->whereHas('squad', function ($q) {
-                $q->where('id', Auth::user()->squad_id);
+                $q->where('id', Auth::user()->regu_id);
             })
             ->whereHas('period', function ($q) use ($hour) {
-                $q->whereTime('start', '<=', $hour);
-                $q->whereTime('end', '>', $hour);
+                $q->whereTime('mulai', '<=', $hour);
+                $q->whereTime('selesai', '>', $hour);
             })
             ->first();
 
         $title = 'Tidak ada presensi';
         if ($alreadyPresence) {
-            $title = 'Sudah Presensi: ' . $alreadyPresence->schedule->period->name;
+            $title = 'Sudah Presensi: ' . $alreadyPresence->schedule->period->nama;
         } elseif ($schedule) {
-            $title = 'Presensi: ' . $schedule->period->name;
+            $title = 'Presensi: ' . $schedule->period->nama;
         }
 
         return [
@@ -78,15 +78,15 @@ class Presence extends Page
                 })
                 ->label($title)
                 ->action(function (array $data) use ($today, $hour): void {
-                    $data['user_id'] = Auth::id();
+                    $data['anggota_id'] = Auth::id();
                     $data['keterangan'] = null;
-                    $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth)
-                    ->where('day', $today->dayOfWeekIso)
+                    $data['jadwal_id'] = Schedule::where('minggu', $today->weekOfMonth)
+                    ->where('hari', $today->dayOfWeekIso)
                     ->whereHas('squad', function ($q) {
-                        $q->where('id', Auth::user()->squad_id);
+                        $q->where('id', Auth::user()->regu_id);
                     })->whereHas('period', function ($q) use ($hour) {
-                        $q->whereTime('start', '<=', $hour);
-                        $q->whereTime('end', '>', $hour);
+                        $q->whereTime('mulai', '<=', $hour);
+                        $q->whereTime('selesai', '>', $hour);
                     })->first()->id;
 
                     ModelsPresence::create($data);
