@@ -21,8 +21,8 @@ class EditSchedule extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        unset($data['user_id']);
-        unset($data['period_id']);
+        unset($data['anggota_id']);
+        unset($data['periode_id']);
         return $data;
     }
 
