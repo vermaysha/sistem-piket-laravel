@@ -23,70 +23,69 @@ class Presence extends Page
 
     protected function getActions(): array
     {
+        $today = Carbon::today();
+        $now = Carbon::now();
+        $hour = $now->format('H:i:s');
+
+        $alreadyPresence =  ModelsPresence::with([
+            'schedule',
+            'schedule.period'
+        ])->where('user_id', Auth::id())
+            ->whereDate('created_at', Carbon::today())
+            ->whereHas('schedule', function ($q) use ($today) {
+                $q->where('week', $today->weekOfMonth)
+                    ->where('day', $today->dayOfWeekIso)
+                    ->whereHas('squad', function ($q) {
+                        $q->where('id', Auth::user()->squad_id);
+                    });
+            })
+            ->whereHas('schedule.period', function ($q) use ($hour) {
+                $q->whereTime('start', '<=', $hour);
+                $q->whereTime('end', '>', $hour);
+            })
+            ->first();
+        $schedule = Schedule::with('period')->where('week', $today->weekOfMonth)
+            ->where('day', $today->dayOfWeekIso)
+            ->where('is_accepted', true)
+            ->whereHas('squad', function ($q) {
+                $q->where('id', Auth::user()->squad_id);
+            })
+            ->whereHas('period', function ($q) use ($hour) {
+                $q->whereTime('start', '<=', $hour);
+                $q->whereTime('end', '>', $hour);
+            })
+            ->first();
+
         return [
             Action::make('presensi')
-                ->hidden(function (): bool {
-                    $today = Carbon::today();
-                    $alreadyPresence =  ModelsPresence::where('user_id', Auth::id())
-                        ->whereDate('created_at', Carbon::today())->count() > 0;
-
+                ->disabled(function () use ($alreadyPresence, $schedule): bool {
                     if ($alreadyPresence) {
                         return true;
                     }
 
-                    // $hasSchedule = Schedule::with('period')->where('week', $today->weekOfMonth)
-                    //     ->where('day', $today->dayOfWeekIso)
-                    //     ->where('is_accepted', true)
-                    //     ->whereHas('squad', function ($q) {
-                    //         $q->where('id', Auth::user()->squad_id);
-                    //     })->whereHas('period', function ($q) {
-                    //         // $now = Carbon::now();
-                    //         // $q->whereTime('start', '<=', $now);
-                    //         // $q->whereTime('end', '>', $now);
-                    //     })->first();
-
-                    $hasSchedule = Schedule::where('week', $today->weekOfMonth)
-                    ->where('day', $today->dayOfWeekIso)
-                    ->whereHas('squad', function ($q) {
-                        $q->where('id', Auth::user()->squad_id);
-                    })->first();
-
-                    if ($hasSchedule) {
-                        $now = Carbon::now();
-                        $hour = $now->hour;
-                        $period = $hasSchedule->period;
-                        $start = $period->start->hour;
-                        $end = $period->end->hour;
-
-                        if ($hour >= $start && $hour <= $end) {
-                            return false;
-                        }
-                        else if ($hour >= $start && $hour > $end) {
-                            return true;
-                        }
+                    if ($schedule) {
+                        return false;
                     }
 
                     return true;
                 })
-                ->label('Presensi')
-                ->action(function (array $data): void {
-                    $today = Carbon::today();
+                ->label($alreadyPresence ? 'Sudah Presensi: ' . $alreadyPresence->schedule->period->name : 'Presensi: ' . $schedule->period->name)
+                ->action(function (array $data) use ($today, $hour): void {
                     $data['user_id'] = Auth::id();
                     $data['keterangan'] = null;
                     $data['schedule_id'] = Schedule::where('week', $today->weekOfMonth)
                     ->where('day', $today->dayOfWeekIso)
                     ->whereHas('squad', function ($q) {
                         $q->where('id', Auth::user()->squad_id);
+                    })->whereHas('period', function ($q) use ($hour) {
+                        $q->whereTime('start', '<=', $hour);
+                        $q->whereTime('end', '>', $hour);
                     })->first()->id;
 
                     ModelsPresence::create($data);
 
                     redirect('/presence');
                 })
-                // ->form([
-                //     Forms\Components\Textarea::make('keterangan')
-                //     ->label('Keterangan')
-                // ]),
         ];
     }
 
