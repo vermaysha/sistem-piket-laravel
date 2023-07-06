@@ -31,10 +31,10 @@ class MemberResource extends Resource
             ->schema([
                 TextInput::make('fullname')->label('Nama Lengkap')->required()->autofocus()->autocapitalize(),
                 TextInput::make('email')->email()->label('Email')->required()->autocomplete('username'),
-                TextInput::make('rank')->label('Pangkat')->required(),
-                TextInput::make('position')->label('Jabatan')->required(),
+                TextInput::make('pangkat')->label('Pangkat')->required(),
+                TextInput::make('jabatan')->label('Jabatan')->required(),
                 TextInput::make('password')->password()->hiddenOn('edit')->visibleOn('create')->required()->autocomplete('new-password'),
-                Select::make('squad')->relationship('squad', 'name')->label('Regu'),
+                Select::make('squad')->relationship('squad', 'nama')->label('Regu'),
             ]);
     }
 
@@ -44,9 +44,9 @@ class MemberResource extends Resource
             ->columns([
                 TextColumn::make('fullname')->label('Nama'),
                 TextColumn::make('email')->label('Email'),
-                TextColumn::make('rank')->label('Pangkat'),
-                TextColumn::make('position')->label('Jabatan'),
-                TextColumn::make('squad.name')->label('Regu'),
+                TextColumn::make('pangkat')->label('Pangkat'),
+                TextColumn::make('jabatan')->label('Jabatan'),
+                TextColumn::make('squad.nama')->label('Regu'),
             ])
             ->filters([
                 //

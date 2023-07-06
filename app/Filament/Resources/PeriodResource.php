@@ -25,12 +25,12 @@ class PeriodResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->label('Nama Periode')
+                Forms\Components\TextInput::make('nama')->label('Nama Periode')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TimePicker::make('start')->label('Mulai jam')
+                Forms\Components\TimePicker::make('mulai')->label('Mulai jam')
                     ->required(),
-                Forms\Components\TimePicker::make('end')->label('Berakhir jam')
+                Forms\Components\TimePicker::make('selesai')->label('Berakhir jam')
                     ->required(),
             ]);
     }
@@ -39,10 +39,10 @@ class PeriodResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Nama Periode'),
-                Tables\Columns\TextColumn::make('start')->label('Mulai jam')
+                Tables\Columns\TextColumn::make('nama')->label('Nama Periode'),
+                Tables\Columns\TextColumn::make('mulai')->label('Mulai jam')
                     ->time(),
-                Tables\Columns\TextColumn::make('end')->label('Berakhir jam')
+                Tables\Columns\TextColumn::make('selesai')->label('Berakhir jam')
                     ->time(),
             ])
             ->filters([

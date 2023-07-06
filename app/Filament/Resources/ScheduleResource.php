@@ -32,15 +32,15 @@ class ScheduleResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('squad_id')->label('Regu')->relationship('squad', 'name')->required(),
-                Select::make('period_id')->label('Periode')->relationship('period', 'name')->required(),
-                Select::make('week')->label('Minggu ke')->options([
+                Select::make('regu_id')->label('Regu')->relationship('squad', 'nama')->required(),
+                Select::make('periode_id')->label('Periode')->relationship('period', 'nama')->required(),
+                Select::make('minggu')->label('Minggu ke')->options([
                     1 => 'Minggu ke-1',
                     2 => 'Minggu ke-2',
                     3 => 'Minggu ke-3',
                     4 => 'Minggu ke-4',
                 ])->required(),
-                Select::make('day')->label('Hari')->options([
+                Select::make('hari')->label('Hari')->options([
                     1 => 'Senin',
                     2 => 'Selasa',
                     3 => 'Rabu',
@@ -49,7 +49,7 @@ class ScheduleResource extends Resource
                     6 => 'Sabtu',
                     7 => 'Minggu',
                 ])->required(),
-                Toggle::make('is_accepted')
+                Toggle::make('diterima')
                     ->label('Status')
                     ->inline()
                     ->hidden(function () {
@@ -62,15 +62,15 @@ class ScheduleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('squad.name')->label('Nama Regu'),
-                TextColumn::make('period.name')->label('Periode')->alignCenter(),
-                BadgeColumn::make('week')->label('Minggu')->color('primary')->enum([
+                TextColumn::make('squad.nama')->label('Nama Regu'),
+                TextColumn::make('period.nama')->label('Periode')->alignCenter(),
+                BadgeColumn::make('minggu')->label('Minggu')->color('primary')->enum([
                     1 => 'Pertama',
                     2 => 'Kedua',
                     3 => 'Ketiga',
                     4 => 'Keempat',
                 ])->alignCenter(),
-                BadgeColumn::make('day')->label('Hari')->color('primary')->enum([
+                BadgeColumn::make('hari')->label('Hari')->color('primary')->enum([
                     1 => 'Senin',
                     2 => 'Selasa',
                     3 => 'Rabu',
@@ -79,7 +79,7 @@ class ScheduleResource extends Resource
                     6 => 'Sabtu',
                     7 => 'Minggu',
                 ])->alignCenter(),
-                BadgeColumn::make('is_accepted')->color(function ($state) {
+                BadgeColumn::make('diterima')->color(function ($state) {
                     if ($state) {
                         return 'success';
                     }
@@ -121,10 +121,10 @@ class ScheduleResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         if (auth()->user()->role === 'admin') {
-            return parent::getEloquentQuery()->where('is_accepted', true);
+            return parent::getEloquentQuery()->where('diterima', true);
         }
 
-        return parent::getEloquentQuery()->where('is_accepted', false);
+        return parent::getEloquentQuery()->where('diterima', false);
     }
 
     public static function getModelLabel(): string
