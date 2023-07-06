@@ -34,10 +34,10 @@
                 {{-- <td class="border border-slate-300 px-2 py-2">{{ $item->keterangan }}</td> --}}
                 <td class="border border-slate-300 px-2 py-2">{{ $item->created_at->isoFormat('dddd, DD MMMM Y \P\u\k\u\l HH:mm') }}</td>
                 <td class="border border-slate-300 px-2 py-2">
-                    {{ strtr($item->schedule->week, $week) }}
+                    {{ strtr($item->schedule->minggu, $minggu) }}
                 </td>
-                <td class="border border-slate-300 px-2 py-2">{{ strtr($item->schedule->day, $day) }}</td>
-                <td class="border border-slate-300 px-2 py-2">{{ $item->schedule->period->name }}</td>
+                <td class="border border-slate-300 px-2 py-2">{{ strtr($item->schedule->hari, $hari) }}</td>
+                <td class="border border-slate-300 px-2 py-2">{{ $item->schedule->period->nama }}</td>
             </tr>
             @endforeach
         </tbody>
