@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b359e2117c5a1cbeda63fe5151b7e5e0",
+    "content-hash": "bc0d476096edd842b58dea7267318fbe",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -4112,16 +4112,16 @@
         },
         {
             "name": "saade/filament-fullcalendar",
-            "version": "v1.8.0",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/saade/filament-fullcalendar.git",
-                "reference": "a5388e473c4acc7abbe2c5500ff4a58ef8362a85"
+                "reference": "5c9276044665bbcbb1fd944bdbb8ea42a152eb43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/a5388e473c4acc7abbe2c5500ff4a58ef8362a85",
-                "reference": "a5388e473c4acc7abbe2c5500ff4a58ef8362a85",
+                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/5c9276044665bbcbb1fd944bdbb8ea42a152eb43",
+                "reference": "5c9276044665bbcbb1fd944bdbb8ea42a152eb43",
                 "shasum": ""
             },
             "require": {
@@ -4178,7 +4178,7 @@
             ],
             "support": {
                 "issues": "https://github.com/saade/filament-fullcalendar/issues",
-                "source": "https://github.com/saade/filament-fullcalendar/tree/v1.8.0"
+                "source": "https://github.com/saade/filament-fullcalendar/tree/v1.9.1"
             },
             "funding": [
                 {
@@ -4186,7 +4186,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-21T13:26:25+00:00"
+            "time": "2023-07-06T21:52:48+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
