@@ -19,7 +19,7 @@ class ListPresence extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         if (Auth::user()->role === 'anggota') {
-            return Presence::query()->where('user_id', Auth::id());
+            return Presence::query()->where('anggota_id', Auth::id());
         } else {
             $query =  Presence::query();
             $month = request()->get('month');
@@ -51,13 +51,13 @@ class ListPresence extends Component implements Tables\Contracts\HasTable
             }),
             // Tables\Columns\TextColumn::make('keterangan')->label('Keterangan'),
             Tables\Columns\BadgeColumn::make('created_at')->dateTime('l, d F Y \P\u\k\u\l H:i')->label('Tanggal Presensi')->color('success')->alignCenter(),
-            BadgeColumn::make('schedule.week')->label('Jadwal Minggu')->color('primary')->enum([
+            BadgeColumn::make('schedule.minggu')->label('Jadwal Minggu')->color('primary')->enum([
                 1 => 'Pertama',
                 2 => 'Kedua',
                 3 => 'Ketiga',
                 4 => 'Keempat',
             ])->alignCenter(),
-            BadgeColumn::make('schedule.day')->label('Jadwal Hari')->color('primary')->enum([
+            BadgeColumn::make('schedule.hari')->label('Jadwal Hari')->color('primary')->enum([
                 1 => 'Senin',
                 2 => 'Selasa',
                 3 => 'Rabu',
@@ -66,7 +66,7 @@ class ListPresence extends Component implements Tables\Contracts\HasTable
                 6 => 'Sabtu',
                 7 => 'Minggu',
             ])->alignCenter(),
-            BadgeColumn::make('schedule.period.name')->label('Periode Piket')->color('primary')->alignCenter()
+            BadgeColumn::make('schedule.period.nama')->label('Periode Piket')->color('primary')->alignCenter()
         ];
     }
 

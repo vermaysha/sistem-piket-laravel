@@ -21,13 +21,13 @@ class PresenceReportController extends Controller
         $today = Carbon::today();
 
         $data = [
-            'week' => [
+            'minggu' => [
                 1 => 'Pertama',
                 2 => 'Kedua',
                 3 => 'Ketiga',
                 4 => 'Keempat',
             ],
-            'day' => [
+            'hari' => [
                 1 => 'Senin',
                 2 => 'Selasa',
                 3 => 'Rabu',
