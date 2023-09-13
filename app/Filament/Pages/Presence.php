@@ -10,6 +10,8 @@ use Filament\Pages\Actions\Action;
 use Filament\Forms;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\TemporaryUploadedFile;
+
 
 class Presence extends Page
 {
@@ -92,7 +94,18 @@ class Presence extends Page
                     ModelsPresence::create($data);
 
                     redirect('/presence');
-                })
+                })->form([
+                    Forms\Components\FileUpload::make('bukti')
+                        ->label('Bukti Foto')
+                        ->image()
+                        ->disk('public')
+                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                            return (string) str($file->getClientOriginalName())->prepend(uniqid());
+                        })
+                        ->required(),
+                    Forms\Components\Textarea::make('keterangan')
+                    ->label('Keterangan'),
+                ])
         ];
     }
 

@@ -6,6 +6,7 @@ use App\Models\Presence;
 use App\Models\Schedule;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -49,7 +50,13 @@ class ListPresence extends Component implements Tables\Contracts\HasTable
             TextColumn::make('user.fullname')->label('Nama')->visible(function () {
                 return Auth::user()->role === 'pimpinan';
             }),
-            // Tables\Columns\TextColumn::make('keterangan')->label('Keterangan'),
+            ImageColumn::make('bukti')
+                ->label('Bukti')
+                ->defaultImageUrl('https://placehold.co/600x400?text=Tidak%20Ada%20Bukti')
+                ->disk('public')
+                ->openUrlInNewTab(true)
+                ->size(80),
+            Tables\Columns\TextColumn::make('keterangan')->label('Keterangan'),
             Tables\Columns\BadgeColumn::make('created_at')->dateTime('l, d F Y \P\u\k\u\l H:i')->label('Tanggal Presensi')->color('success')->alignCenter(),
             BadgeColumn::make('schedule.minggu')->label('Jadwal Minggu')->color('primary')->enum([
                 1 => 'Pertama',
