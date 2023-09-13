@@ -81,7 +81,6 @@ class Presence extends Page
                 ->label($title)
                 ->action(function (array $data) use ($today, $hour): void {
                     $data['anggota_id'] = Auth::id();
-                    $data['keterangan'] = null;
                     $data['jadwal_id'] = Schedule::where('minggu', $today->weekOfMonth)
                     ->where('hari', $today->dayOfWeekIso)
                     ->whereHas('squad', function ($q) {
