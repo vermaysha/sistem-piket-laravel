@@ -21,6 +21,7 @@ class Presence extends Model
         'keterangan',
         'anggota_id',
         'jadwal_id',
+        'bukti',
     ];
 
     function user() {
