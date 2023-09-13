@@ -47,7 +47,7 @@ class CalendarWidget extends FullCalendarWidget
                             if (Auth::user()->role === 'anggota') {
                                 $results[] = [
                                     'id' => uniqid('fl'),
-                                    'title' => $schedule->period->nama,
+                                    'title' => $schedule->period->mulai->format('H:i'),
                                     'start' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
                                     'end' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->selesai->format('H')),
                                     'display' => 'block',
@@ -61,7 +61,7 @@ class CalendarWidget extends FullCalendarWidget
                                     $name = ucfirst(mb_strtolower(explode(' ', $member->fullname)[0]));
                                     $results[] = [
                                         'id' => uniqid('fl'),
-                                        'title' =>  $name . ' : ' . $schedule->period->nama,
+                                        'title' =>  $name . ' : ' . $schedule->period->mulai->format('H:i'),
                                         'start' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->mulai->format('H')),
                                         'end' => $today->addWeeks($i - 1)->addDays($schedule->hari - 1)->setHour($schedule->period->selesai->format('H')),
                                         'display' => 'block',
@@ -72,21 +72,21 @@ class CalendarWidget extends FullCalendarWidget
                                     ];
                                 }
                             }
-                        } else {
-                            if (Auth::user()->role === 'anggota') {
-                                $results[] = [
-                                    'id' => uniqid('fl'),
-                                    'title' => 'Lepas Dinas',
-                                    'start' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->mulai->format('H')),
-                                    'end' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->selesai->format('H')),
-                                    'display' => 'block',
-                                    'editable' => false,
-                                    'resourceEditable' => false,
-                                    'backgroundColor' => '#e54f6d',
-                                    'borderColor' => '#e54f6d'
-                                ];
-                            }
-                        }
+                        } //else {
+                        //     if (Auth::user()->role === 'anggota') {
+                        //         $results[] = [
+                        //             'id' => uniqid('fl'),
+                        //             'title' => 'Lepas Dinas',
+                        //             'start' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->mulai->format('H')),
+                        //             'end' => $today->addWeeks($i - 1)->addDays($j - 1)->setHour($schedule->period->selesai->format('H')),
+                        //             'display' => 'block',
+                        //             'editable' => false,
+                        //             'resourceEditable' => false,
+                        //             'backgroundColor' => '#e54f6d',
+                        //             'borderColor' => '#e54f6d'
+                        //         ];
+                        //     }
+                        // }
                     }
                 }
             }
