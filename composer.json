@@ -12,7 +12,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "saade/filament-fullcalendar": "1.9.2"
+        "saade/filament-fullcalendar": "1.9.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
