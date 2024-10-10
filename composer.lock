@@ -843,16 +843,16 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v3.3.3",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a"
+                "reference": "8c784d071debd117328803d86b2097615b457500"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
-                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/8c784d071debd117328803d86b2097615b457500",
+                "reference": "8c784d071debd117328803d86b2097615b457500",
                 "shasum": ""
             },
             "require": {
@@ -865,10 +865,14 @@
             "require-dev": {
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-webmozart-assert": "^1.0",
                 "phpunit/phpunit": "^7.0|^8.0|^9.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Cron\\": "src/Cron/"
@@ -892,7 +896,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.3"
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.4.0"
             },
             "funding": [
                 {
@@ -900,7 +904,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-10T19:36:49+00:00"
+            "time": "2024-10-09T13:47:03+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -2699,16 +2703,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.12.6",
+            "version": "v2.12.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "7d3a57b3193299cf1a0639a3935c696f4da2cf92"
+                "reference": "7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/7d3a57b3193299cf1a0639a3935c696f4da2cf92",
-                "reference": "7d3a57b3193299cf1a0639a3935c696f4da2cf92",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8",
+                "reference": "7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8",
                 "shasum": ""
             },
             "require": {
@@ -2760,7 +2764,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.12.6"
+                "source": "https://github.com/livewire/livewire/tree/v2.12.8"
             },
             "funding": [
                 {
@@ -2768,7 +2772,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-11T04:02:34+00:00"
+            "time": "2024-07-13T19:58:46+00:00"
         },
         {
             "name": "masterminds/html5",
